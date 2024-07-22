@@ -1,27 +1,39 @@
 import s from "./SearchBar.module.css";
 import { Formik, Form, Field } from "formik";
+import toast from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
+import { FiSearch } from "react-icons/fi";
 
 const SearchBar = ({ setQuery }) => {
   const initialValues = {
     query: "",
   };
+
   const handleSubmit = (values) => {
-    console.log(values);
-    setQuery(values.query);
+    const { query } = values;
+    if (!query.trim()) {
+      toast.error("Search field is empty. Please enter your request");
+      return;
+    }
+    setQuery(query);
   };
 
   return (
-    <header>
+    <header className={s.wrapper}>
+      <Toaster position="top-right" />
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-        <Form>
+        <Form className={s.container}>
           <Field
+            className={s.input}
             name="query"
             type="text"
-            autocomplete="off"
-            autofocus
+            autoComplete="off"
+            autoFocus
             placeholder="Search images and photos"
           />
-          <button type="submit">Search</button>
+          <button className={s.button} type="submit">
+            <FiSearch size={18} /> Search
+          </button>
         </Form>
       </Formik>
     </header>
