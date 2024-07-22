@@ -30,6 +30,7 @@ const App = () => {
         setResults((prev) =>
           page === 1 ? response.results : [...prev, ...response.results]
         );
+
         setTotal(response.total_pages);
       } catch (error) {
         setIsError(true);
@@ -54,7 +55,7 @@ const App = () => {
   };
 
   return (
-    <>
+    <div className="s.app">
       <SearchBar setQuery={handleSetQuery} />
       {isLoading && <Loader />}
       {isError && <ErrorMessage />}
@@ -67,7 +68,7 @@ const App = () => {
         imageUrl={modal.imageUrl}
         isOpen={modal.isOpen}
       />
-    </>
+    </div>
   );
 };
 
